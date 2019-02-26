@@ -2,12 +2,19 @@ package com.adiaz.beans;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+@Entity
 @ApiModel(description="Information about the system user.")
 public class User {
 
+	@Id
+	@GeneratedValue
 	private Integer id;
 	@ApiModelProperty(notes="First name of user (at least 2 characters).", 
 			example="Antoine")

@@ -12,8 +12,11 @@ https://start.spring.io/ → create spring boot project from scratch.
 * @RestController  
 * @GetMapping  
 
+## Create custom Exceptions
+
+
 ## Swagger (now Open Api)
-* Add dependency to **pom.xml**
+* Add dependencies to **pom.xml**
 
 ```xml
 <dependency>
@@ -60,6 +63,44 @@ public class SwaggerConfig {
 }
 ```
 
-* Ask for urls
+* Ask for urls  
 	http://localhost:8080/swagger-ui.html  
   http://localhost:8080/v2/api-docs  
+
+## Persitence
+1. Add dependencies JPA and H2
+  * JPA: persistence standard for Java.
+  * H2: database in memory for development purpose.
+
+```xml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+<dependency>
+  <groupId>com.h2database</groupId>
+  <artifactId>h2</artifactId>
+  <scope>runtime</scope>
+</dependency>
+```
+2. Add annotations:
+  * @Entity
+  * @Id
+  * @GenerateValue
+
+
+3. H2 console:  
+http://localhost:8080/h2-console  
+Default database name: *jdbc:h2:mem:testdb*
+
+## Working with APIs
+* Swagger
+* RAML
+* API BluePrint
+* OpenAPI
+* Swagger Tools
+  * Swagger Editor
+  * Swagger UI
+  * Swagger Codegen
+
+  *YAML
