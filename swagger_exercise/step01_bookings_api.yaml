@@ -1,0 +1,25 @@
+swagger: '2.0'
+host: thebookingapi.com
+basePath: /v1
+info:
+  title: Booking API
+  description: training example of a Bookin API for shows
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  version: 1.0.1
+  contact:
+    name: Perico de los Palotes
+    url: https://thebookingapi/info
+    email: contact@thebookingapi.com
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+externalDocs:
+  description: optional external doc
+  url: 'http://externaldoc'
+
+paths: {}  

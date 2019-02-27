@@ -1,0 +1,256 @@
+swagger: '2.0'
+host: thebookingapi.com
+basePath: /v1
+info:
+  title: Booking API
+  description: training example of a Bookin API for shows
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  version: 1.0.1
+  contact:
+    name: John Doe
+    url: https://thebookingapi/info
+    email: contact@thebookingapi.com
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+externalDocs:
+  description: optional external doc
+  url: 'http://externaldoc'
+
+tags:
+- name: "Shows"
+  description: "Everything about your shows"
+- name: "Tickets"
+  description: "Everything about your tickets"    
+
+paths: 
+
+  /shows:
+
+    get:
+      tags:
+         - Shows
+      summary: returns list of shows
+      description: returns list of shows availables
+      operationId: getShows
+      responses:
+        200: 
+          description: Ok
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Show"
+        500:
+          description: Error response
+          schema:
+            $ref: "#/definitions/ErrorResponse"      
+          
+    post:
+      tags:
+         - Shows
+      summary: add a new  show
+      description: new show is created
+      operationId: createShow
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Here is the show data required to create a show"
+        required: true
+        schema:
+          $ref: "#/definitions/Show"
+      responses:
+        201: 
+          description: New show is created
+        400:
+          description: "Invalid Show"  
+          schema:
+            $ref: "#/definitions/ErrorResponse"  
+        500:
+          description: Error response
+          schema:
+            $ref: "#/definitions/ErrorResponse"  
+    
+          
+  /shows/{id_show}:
+  
+    get:
+      tags:
+         - Shows
+      summary: returns a show
+      description: return details of a show given its id
+      operationId: getShow
+      parameters:
+        - name: id_show
+          in: path
+          required: true
+          type: integer
+      responses:
+        200: 
+          description: Ok
+          schema:
+            $ref: "#/definitions/Show"
+          examples:
+            application/json:
+              {
+                id: 666,
+                location: Gijon,
+                ticketsAvailable: 999,
+                endSellingDate: "2018-12-12T00:00:00Z",
+                startSellingDate: "2019-04-04T00:00:00Z",
+                name: "Gijon Sound",                    
+                price: 50.00,
+                showType: MUSIC
+              }  
+        404:
+          description: "Show not found"
+          schema:
+             $ref: "#/definitions/ErrorResponse"        
+        500:
+          description: Error response
+          schema:
+            $ref: "#/definitions/ErrorResponse"  
+
+    put:
+      tags:
+         - Shows
+      summary: edit a show
+      description: a show is edited     
+      parameters:
+        - name: id_show
+          in: path
+          required: true
+          type: integer
+        - in: "body"
+          name: "body"
+          description: "data show to edit"
+          required: true
+          schema:
+            $ref: "#/definitions/Show"
+      responses:
+        200:
+          description:  show is updated
+        400:
+          description: "Invalid Show"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        500:
+          description: Error response
+          schema:
+            $ref: "#/definitions/ErrorResponse"     
+
+    delete:
+      tags:
+         - Shows
+      summary: delete a show
+      description: delete a show
+     
+      parameters:
+        - name: id_show
+          in: path
+          required: true
+          type: integer
+      responses:
+        404:
+          description: "Show Id does not exist"
+          schema:
+             $ref: '#/definitions/ErrorResponse'
+        200:
+          description: Show was sucessfully deleted
+          schema:
+            $ref: "#/definitions/Show"
+        500:
+          description: Error response
+          schema:
+            $ref: "#/definitions/ErrorResponse"                   
+
+  /tickets/{id_show}/buy:
+    post:
+      tags:
+         - Tickets
+      summary: Here you can buy tickets for an event/show
+      description: We asume that the bought of a tiket implies the payment of that
+      operationId: buyTickets
+      parameters:
+      - name: id_show
+        in: path
+        required: true
+        type: integer
+      - in: "body"
+        name: "body"
+        description: "Order to buy one or more tickets for a valid show"
+        required: true
+        schema:
+          $ref: "#/definitions/Ticket"
+      responses:
+        201:
+          description: "Ticket purchase has been done"
+        404:
+          description: "Show not found"
+          schema:
+            $ref: "#/definitions/ErrorResponse"    
+        500:
+          description: Error response
+          schema:
+            $ref: "#/definitions/ErrorResponse"            
+  
+
+definitions:
+
+    Show:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+        location:
+          type: string
+          example: Barcelona
+        ticketsAvailable:
+          type: integer
+          format: int64
+        endSellingDate:
+          type: string
+          format: date-time
+        startSellingDate:
+          type: string
+          format: date-time
+        name:
+          type: string
+          example: sonar
+        price:
+          type: number
+          format: double
+        showType:
+          type: string
+          description: The show type
+          example: MUSIC
+          enum:
+            - SPORT
+            - MUSIC
+            - THEATER
+
+    Ticket:
+      type: object
+      properties:
+        number_of_tickets:
+          type: integer
+          description: How many tickets do you need?
+          format: int64
+        email:
+          type: string
+          description: Ticket holder email (used to send confirmation)        
+
+    ErrorResponse:
+      type: object
+      properties:
+        msg:
+          type: string
+        error_code:
+          type: integer  

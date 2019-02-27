@@ -1,0 +1,60 @@
+swagger: '2.0'
+host: thebookingapi.com
+basePath: /v1
+info:
+  title: Booking API
+  description: training example of a Bookin API for shows
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  version: 1.0.1
+  contact:
+    name: John Doe
+    url: https://thebookingapi/info
+    email: contact@thebookingapi.com
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+externalDocs:
+  description: optional external doc
+  url: 'http://externaldoc'
+
+paths: 
+
+  /shows:
+
+    get:
+      summary: returns list of shows
+      description: returns list of shows availables
+      operationId: getShows
+      responses:
+        200: 
+          description: Ok
+          
+    post:
+      summary: add a new  show
+      description: new show is created
+      operationId: createShow
+      responses:
+        201: 
+          description: New show is created
+    
+          
+  /shows/{id_show}:
+  
+    get:
+      summary: returns a show
+      description: return details of a show given its id
+      operationId: getShow
+      parameters:
+        - name: id_show
+          in: path
+          required: true
+          type: integer
+      responses:
+        200: 
+          description: Ok
+  

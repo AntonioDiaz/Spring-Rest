@@ -24,4 +24,10 @@ public class HelloController {
 		return new HelloBean("Aupa Atleti!!");
 	}
 
+	@GetMapping("/helloBean/{name}")
+	public HelloBean helloBeanName(@PathVariable String name ) {
+		return new HelloBean(name + ": Aupa Atleti!!");
+	}
+
+	
 }

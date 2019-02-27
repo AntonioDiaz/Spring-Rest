@@ -106,3 +106,11 @@ Default database name: *jdbc:h2:mem:testdb*
 * YAML: http://www.yamllint.com/
 
 https://editor.swagger.io
+
+## Testing
+http://dredd.org
+
+1. Generate yaml with swagger Editor
+2. Save locally
+3. Call dredd to test
+> dreed api-description-hellobean.yml http://localhost:8080
