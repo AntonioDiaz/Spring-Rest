@@ -97,7 +97,7 @@ Default database name: *jdbc:h2:mem:testdb*
 * Swagger
 * RAML
 * API BluePrint
-* OpenAPI
+* OpenAPI 2 (Swagger2)
 * Swagger Tools
   * Swagger Editor
   * Swagger UI
@@ -110,7 +110,82 @@ https://editor.swagger.io
 ## Testing
 http://dredd.org
 
-1. Generate yaml with swagger Editor
+1. Generate yaml with swagger Editor (https://editor.swagger.io/)
 2. Save locally
-3. Call dredd to test
+3. Start server
+4. Call **dredd** to test
 > dreed api-description-hellobean.yml http://localhost:8080
+
+```yaml
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "Example API"
+basePath: /
+schemes:
+  - http
+paths:
+  /helloBean:
+    get:
+      produces:
+        - application/json;charset=utf-8
+      responses:
+        '200':
+          description: 'OK'
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+            required:
+              - message
+```
+
+* CodeFirst  
+* Contract or API or design FIRST  
+
+## Generate Code with Swagger2
+* From Swagger Editor generate server, select spring  
+* Extract zip  
+* Import project as: "Existing maven project"
+
+
+## HATEOAS
+Add links with resources to response.  
+Example:
+
+```json
+{
+    "id": 2,
+    "name": "antonio",
+    "birthDate": "2019-02-27T14:20:22.994+0000",
+    "_links": {
+        "all-users": {
+            "href": "http://localhost:8080/users"
+        }
+    }
+}
+```
+1. Add library to pom.xml.  
+
+```xml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-hateoas</artifactId>
+</dependency>
+```
+2. Add code to Controller
+
+```java
+@GetMapping("/users/{id}")
+public Resource<User> usersRetrieve(@PathVariable int id) throws UserNotFoundException {
+  User user = serviceUser.findUser(id);
+  if (user==null) {
+    throw new UserNotFoundException("No existe listillo");
+  }
+  Resource<User> resource = new Resource<>(user);
+  ControllerLinkBuilder linkTo = linkTo(methodOn(this.getClass()).usersRetrieve());
+  resource.add(linkTo.withRel("all-users"));
+  return resource;
+}
+```

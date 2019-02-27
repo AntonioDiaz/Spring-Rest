@@ -1,8 +1,12 @@
 package com.adiaz.controllers;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,12 +37,15 @@ public class UsersResourceController {
 	}
 
 	@GetMapping("/users/{id}")
-	public User usersRetrieve(@PathVariable int id) throws UserNotFoundException {
+	public Resource<User> usersRetrieve(@PathVariable int id) throws UserNotFoundException {
 		User user = serviceUser.findUser(id);
 		if (user==null) {
 			throw new UserNotFoundException("No existe listillo");
 		}
-		return user;
+		Resource<User> resource = new Resource<>(user);
+		ControllerLinkBuilder linkTo = linkTo(methodOn(this.getClass()).usersRetrieve());
+		resource.add(linkTo.withRel("all-users"));
+		return resource;
 	}
 	
 	
