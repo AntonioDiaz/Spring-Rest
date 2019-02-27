@@ -103,4 +103,6 @@ Default database name: *jdbc:h2:mem:testdb*
   * Swagger UI
   * Swagger Codegen
 
-  *YAML
+* YAML: http://www.yamllint.com/
+
+https://editor.swagger.io
