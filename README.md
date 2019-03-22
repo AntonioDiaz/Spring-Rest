@@ -1,12 +1,23 @@
 # Spring REST training
 
-
-
 https://start.spring.io/ → create spring boot project from scratch.
 
 * REST Clients
   * HTTPie
   * Postman
+
+<!-- TOC START min:2 max:3 link:true asterisk:false update:true -->
+- [Important concepts](#important-concepts)
+- [Create custom Exceptions](#create-custom-exceptions)
+- [Swagger (now Open Api)](#swagger-now-open-api)
+- [Persitence](#persitence)
+- [Working with APIs](#working-with-apis)
+- [Testing](#testing)
+- [Generate Code with Swagger2](#generate-code-with-swagger2)
+- [HATEOAS](#hateoas)
+<!-- TOC END -->
+
+
 
 ## Important concepts  
 * @RestController  
