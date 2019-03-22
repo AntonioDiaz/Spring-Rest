@@ -1,12 +1,6 @@
 # Spring REST training
-
-https://start.spring.io/ → create spring boot project from scratch.
-
-* REST Clients
-  * HTTPie
-  * Postman
-
-<!-- TOC START min:2 max:3 link:true asterisk:false update:true -->
+<!-- TOC START min:2 max:2 link:true asterisk:false update:true -->
+- [HTTP](#http)
 - [Important concepts](#important-concepts)
 - [Create custom Exceptions](#create-custom-exceptions)
 - [Swagger (now Open Api)](#swagger-now-open-api)
@@ -17,9 +11,42 @@ https://start.spring.io/ → create spring boot project from scratch.
 - [HATEOAS](#hateoas)
 <!-- TOC END -->
 
+## HTTP
+### Messages
+* Request
+ * URL
+   * Address of the resource
+   * Optional parameters
+ * Method: POST, PUT, DELETE, GET, ...
+ * Headers
+   * Accept (content type)
+   * Authentication
+ * Body (for PUT and POST operations)
+* Response
+ * Status Code
+ * Headers: content type, date, ...
+ * Body (for most request)
+### Verbs  
+
+| Verb        | Action           | Should be Idempotent<br>(always same result) |Should be safe <br> (don't change resources)|
+| ------------- |-------------|-----|-----|
+| **GET**      | fetch <br> an existing resource | yes | yes |
+| **POST**      | create <br> a new resource | no | no |
+| **PUT**      | update <br> an existing resource | yes | no |
+| **DELETE**      | delete <br> an existing resource | yes | no |
+| **HEAD**      | fetch headers of <br> an existing resource | yes | yes |
+| **OPTIONS**      | fetch methods of <br> an existing resource | yes | yes |
+| **PATCH**      | modify <br> an existing resource | no | no |
+
+### Status
 
 
 ## Important concepts  
+https://start.spring.io/ → create spring boot project from scratch.
+
+* REST Clients
+  * HTTPie
+  * Postman
 * @RestController  
 * @GetMapping  
 
