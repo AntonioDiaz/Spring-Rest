@@ -39,6 +39,7 @@
 | **PATCH**      | modify <br> an existing resource | no | no |
 
 ### Status
+https://www.restapitutorial.com/httpstatuscodes.html
 
 
 ## Important concepts  
